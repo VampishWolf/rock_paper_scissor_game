@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game</title>
+<style>
+    h1{
+        text-align: center;
+    }
+    
+</style>
+</head>
+<body>
+    <h1>This is a Rock, Paper, Scissors Game!</h1>
+    <p>Head to your browser's console window!</p>
+    <p id = "hs"></p>
+    <p id = "er"></p>
+    <p id = "cs"></p>
+    <p id = "res"></p>
+    
+    <script>
+    var rps = ["rock", "paper", "scissors"];
+    computerPlay(rps);
+    function computerPlay(stri){
+        
+        let cs = rps[Math.floor(Math.random()*rps.length)];
+        let hs = window.prompt("What's your selection?");
+        
+        cs = cs.toUpperCase();
+        hs = hs.toUpperCase();
+        
+        console.log("Your Selection is: " + hs)
+        document.getElementById("hs").innerHTML = "Your selection is: " + hs;
+        if (hs != "ROCK" && hs != "PAPER" && hs != "SCISSORS"){
+            console.warn("Invalid Input! Select from these options.. \n 1. rock \n 2. paper \n 3. scissors");
+            var string = "Invalid Input! Select from these options.. <br /> 1) ROCK <br /> 2) PAPER <br /> 3) SCISSORS";
+            document.getElementById("er").innerHTML = string;
+            return true;
+        }
+        
+        console.log("Computer's Selection is: " + cs)
+        document.getElementById("cs").innerHTML = "Computer's selection is: " + cs;
+        playRound(cs, hs);
+    }
+    function playRound(c, h){
+        
+        
+        if (c == h){
+            console.error("It's a tie! Restarting...")
+            document.getElementById("res").innerHTML = "It's a tie! Restarting...";
+            document.getElementById("res").style.color = "red";
+            computerPlay(rps);
+        }
+        else if ((c == "ROCK" && h == "SCISSORS") || (c == "SCISSORS" && h == "PAPER") || (c == "PAPER" && h == "ROCK")){
+            console.info("Computer's score!")
+            document.getElementById("res").innerHTML = "Computer's socre!";
+            document.getElementById("res").style.color = "blue";
+        }
+        else if ((c == "ROCK" && h == "PAPER") || (c == "SCISSORS" && h == "ROCK") || (c == "PAPER" && h == "SCISSORS")){
+            console.info("Your score!")
+            document.getElementById("res").innerHTML = "You score!";
+            document.getElementById("res").style.color = "green";
+        }
+        
+    }
+    
+    </script>
+</body>
+</html>
