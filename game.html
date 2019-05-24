@@ -9,21 +9,83 @@
     h1{
         text-align: center;
     }
-    
+    table,th,td{
+        border: 1px solid #dddddd;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        border-spacing: 20px;
+        padding: 5px;
+        text-align: right;
+    }
+    tr:nth-child(even) {
+        background-color: #e7e7e7;
+    }
+    table th{
+        background-color:black;
+        color: whitesmoke;  
+    }
+    #tbl{
+        position:absolute;
+        right: 50px;
+        top: 100px;
+    }
+    #ptags{
+        position: absolute;
+        left: 50px;
+    }
+    #playagainbutton{
+        visibility: hidden;
+    }
+    #det{
+        color: rgb(255, 123, 0);
+    }
+
 </style>
 </head>
 <body>
     <h1>This is a Rock, Paper, Scissors Game!</h1>
-    <p>Head to your browser's console window!</p>
-    <p id = "hs"></p>
-    <p id = "er"></p>
-    <p id = "cs"></p>
-    <p id = "res"></p>
-    
+    <div id="ptags">
+        <p id = "first"><b>INSTRUCTIONS:</b><br />Head to your browser's console window by pressing <i>Ctrl+Shift+i</i> and type in <b><i>play()</i></b> to start the game! <br /> <br /> (This consists of 5 rounds!)</p>
+        <p id = "hs"></p>
+        <p id = "er"></p>
+        <p id = "cs"></p>
+        <p id = "res"></p>
+        <p id = "det"></p>
+        <button id="playagainbutton" value="refresh" onclick="window.location.reload();">Play Again?</button>
+    </div>
+    <div id="tbl">
+    <table>
+        <caption>Score Card</caption>
+        <tr>
+           <th></th><th>Your Score</th><th>Computer Score</th>
+        </tr>
+        <tr>
+            <td><b>Round1</b></td><td><p id="ys1"></p></td><td><p id="cs1"></p></td>
+        </tr>
+        <tr>
+            <td><b>Round2</b></td><td><p id="ys2"></p></td><td><p id="cs2"></p></td>
+        </tr>
+        <tr>
+            <td><b>Round3</b></td><td><p id="ys3"></p></td><td><p id="cs3"></p></td>
+        </tr>
+        <tr>
+            <td><b>Round4</b></td><td><p id="ys4"></p></td><td><p id="cs4"></p></td>
+        </tr>
+        <tr>
+            <td><b>Round5</b></td><td><p id="ys5"></p></td><td><p id="cs5"></p></td>
+        </tr>
+    </table></div>
     <script>
     var rps = ["rock", "paper", "scissors"];
-    computerPlay(rps);
-    function computerPlay(stri){
+    var count,i,csco,hsco;
+    csco = hsco = 0;
+    i=1;
+    function play(){
+        for (count = 0; count < 5; count++){
+            playSelection(rps);
+        }
+    } 
+    function playSelection(stri){
         
         let cs = rps[Math.floor(Math.random()*rps.length)];
         let hs = window.prompt("What's your selection?");
@@ -35,35 +97,112 @@
         document.getElementById("hs").innerHTML = "Your selection is: " + hs;
         if (hs != "ROCK" && hs != "PAPER" && hs != "SCISSORS"){
             console.warn("Invalid Input! Select from these options.. \n 1. rock \n 2. paper \n 3. scissors");
-            var string = "Invalid Input! Select from these options.. <br /> 1) ROCK <br /> 2) PAPER <br /> 3) SCISSORS";
+            var string = "<b>Invalid Input!</b> Select from these options.. <br /> 1) ROCK <br /> 2) PAPER <br /> 3) SCISSORS";
             document.getElementById("er").innerHTML = string;
+            --count;
             return true;
         }
         
         console.log("Computer's Selection is: " + cs)
         document.getElementById("cs").innerHTML = "Computer's selection is: " + cs;
+        document.getElementById("er").innerHTML = "";
         playRound(cs, hs);
     }
     function playRound(c, h){
         
-        
+        var a, b;
         if (c == h){
+            a = b = 0;
             console.error("It's a tie! Restarting...")
             document.getElementById("res").innerHTML = "It's a tie! Restarting...";
             document.getElementById("res").style.color = "red";
-            computerPlay(rps);
+            hsco += a;
+            csco += b;
+            console.log(hsco)
+            console.log(csco)
+            toggler();
+            scoreBoard(a,b);
+            if (count != 5){        
+                playSelection(rps);
+            }
+            count++;
         }
         else if ((c == "ROCK" && h == "SCISSORS") || (c == "SCISSORS" && h == "PAPER") || (c == "PAPER" && h == "ROCK")){
-            console.info("Computer's score!")
-            document.getElementById("res").innerHTML = "Computer's socre!";
+            a = 0; b = 1;
+            console.warn("Computer's score!")
+            document.getElementById("res").innerHTML = "Computer's score!";
             document.getElementById("res").style.color = "blue";
+            hsco += a;
+            csco += b;
+            console.log(hsco)
+            console.log(csco)
+            toggler();
+            scoreBoard(a,b);
+            
         }
         else if ((c == "ROCK" && h == "PAPER") || (c == "SCISSORS" && h == "ROCK") || (c == "PAPER" && h == "SCISSORS")){
+            a = 1; b = 0;
             console.info("Your score!")
             document.getElementById("res").innerHTML = "You score!";
             document.getElementById("res").style.color = "green";
+            hsco += a;
+            csco += b;
+            console.log(hsco)
+            console.log(csco)
+            toggler();
+            scoreBoard(a,b);
         }
         
+    }
+    function scoreBoard(a, b){
+        var hs = "ys", cs = "cs";
+        var hsres = hs.concat(i); 
+        var csres = cs.concat(i);
+        if (i == 5){
+            console.log("Game Over!")
+        }
+        else{
+            console.log("Round " + i + " Complete!\nHeading to the next round...")
+        }
+        i += 1;
+        document.getElementById(hsres).innerHTML = a;
+        document.getElementById(csres).innerHTML = b;
+        return(a,b) 
+    }
+    function toggler(){
+        if (i == 5){
+                if (hsco > csco){
+                    var z;
+                    if (hsco - csco == 1){
+                        z = "point";
+                    }
+                    else{
+                        z = "points"
+                    }
+                    let points = hsco - csco;
+                    document.getElementById("det").innerHTML = "Game Over! You won by " + points + " " + z;
+                    document.getElementById("playagainbutton").style.visibility = "visible";
+                }
+                else if (hsco < csco){
+                    if (csco - hsco == 1){
+                        z = "point";
+                    }
+                    else{
+                        z = "points"
+                    }
+                    let points = csco - hsco;
+                    document.getElementById("det").innerHTML = "Game Over! You lose by " + points + " " + z;
+                    document.getElementById("playagainbutton").style.visibility = "visible";
+                }
+                else{
+                    document.getElementById("det").innerHTML = "Game Over! It was a tie.. Tough Challenge!";
+                    document.getElementById("playagainbutton").style.visibility = "visible";
+                }
+                return true;
+        }
+        else{
+            document.getElementById("det").innerHTML = "Round " + i + " Complete!\nHeading to the next round...";
+        }
     }
     
     </script>
