@@ -45,7 +45,7 @@
 <body>
     <h1>This is a Rock, Paper, Scissors Game!</h1><hr /><br/>
     <div id="ptags">
-        <p id = "first"><b>INSTRUCTIONS:</b><br />Head to your browser's console window by pressing <i>Ctrl+Shift+i</i> and type in <b><i>play()</i></b> to start the game! <br /> <br /> (This consists of 5 rounds!)</p>
+        <p id = "first"><b>INSTRUCTIONS:</b><br />Head to your browser's console window by pressing <i>Ctrl+Shift+k</i> and type in <b><i>play()</i></b> to start the game! <br /> <br /> (This consists of 5 rounds!)</p>
         <p id = "hs"></p>
         <p id = "er"></p>
         <p id = "cs"></p>
@@ -77,7 +77,7 @@
     </table></div>
     <script>
     var rps = ["rock", "paper", "scissors"];
-    var count,i,csco,hsco;
+    var count,i,csco,hsco; //csco - computer_point_counter & hsco - human_point_counter
     csco = hsco = 0;
     i=1;
     function play(){
@@ -93,7 +93,7 @@
         cs = cs.toUpperCase();
         hs = hs.toUpperCase();
         
-        console.log("Your Selection is: " + hs)
+        console.log("Your Selection is: " + hs);
         document.getElementById("hs").innerHTML = "Your selection is: " + hs;
         if (hs != "ROCK" && hs != "PAPER" && hs != "SCISSORS"){
             console.warn("Invalid Input! Select from these options.. \n 1. rock \n 2. paper \n 3. scissors");
@@ -103,23 +103,23 @@
             return true;
         }
         
-        console.log("Computer's Selection is: " + cs)
+        console.log("Computer's Selection is: " + cs);
         document.getElementById("cs").innerHTML = "Computer's selection is: " + cs;
         document.getElementById("er").innerHTML = "";
         playRound(cs, hs);
     }
     function playRound(c, h){
         
-        var a, b;
+        var a, b; //inputs
         if (c == h){
             a = b = 0;
-            console.error("It's a tie! Restarting...")
+            console.error("It's a tie! Restarting...");
             document.getElementById("res").innerHTML = "It's a tie! Restarting...";
             document.getElementById("res").style.color = "red";
             hsco += a;
             csco += b;
-            console.log(hsco)
-            console.log(csco)
+            console.log(hsco);
+            console.log(csco);
             toggler();
             scoreBoard(a,b);
             if (count != 5){        
@@ -134,21 +134,21 @@
             document.getElementById("res").style.color = "blue";
             hsco += a;
             csco += b;
-            console.log(hsco)
-            console.log(csco)
+            console.log(hsco);
+            console.log(csco);
             toggler();
             scoreBoard(a,b);
             
         }
         else if ((c == "ROCK" && h == "PAPER") || (c == "SCISSORS" && h == "ROCK") || (c == "PAPER" && h == "SCISSORS")){
             a = 1; b = 0;
-            console.info("Your score!")
+            console.info("Your score!");
             document.getElementById("res").innerHTML = "You score!";
             document.getElementById("res").style.color = "green";
             hsco += a;
             csco += b;
-            console.log(hsco)
-            console.log(csco)
+            console.log(hsco);
+            console.log(csco);
             toggler();
             scoreBoard(a,b);
         }
@@ -159,10 +159,10 @@
         var hsres = hs.concat(i); 
         var csres = cs.concat(i);
         if (i == 5){
-            console.log("Game Over!")
+            console.log("Game Over!");
         }
         else{
-            console.log("Round " + i + " Complete!\nHeading to the next round...")
+            console.log("Round " + i + " Complete!\nHeading to the next round...");
         }
         i += 1;
         document.getElementById(hsres).innerHTML = a;
