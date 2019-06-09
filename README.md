@@ -9,3 +9,4 @@ Initially it requires the user to start the game from console window by typing p
 I have done a minimalist design approach with the texts and labels and a score table avoiding much graphics because hey, we here to spend most of our time trying to figure out how to create things! Designing comes after. 
 
 Thanks for reading. Well, if you did! 
+####This project was made during the course of development with TheOdinProject - TOP
